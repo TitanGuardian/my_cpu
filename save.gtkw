@@ -1,0 +1,94 @@
+[*]
+[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
+[*] Fri May 22 16:49:28 2020
+[*]
+[dumpfile] "C:\Users\davo1\Desktop\gits\my_cpu\test.vcd"
+[dumpfile_mtime] "Fri May 22 16:46:47 2020"
+[dumpfile_size] 30167
+[savefile] "C:\Users\davo1\Desktop\gits\my_cpu\save.gtkw"
+[timestart] 8
+[size] 1920 1013
+[pos] -1 -1
+*-2.273097 16 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] testbanch.
+[treeopen] testbanch.cpu_block.
+[treeopen] testbanch.cpu_block.control_flow_block.
+[treeopen] testbanch.cpu_block.data_flow_block.
+[treeopen] testbanch.cpu_block.data_flow_block.memory_block.
+[sst_width] 239
+[signals_width] 170
+[sst_expanded] 1
+[sst_vpaned_height] 291
+@28
+testbanch.cpu_block.data_flow_block.clk
+@24
+testbanch.cpu_block.data_flow_block.pc4[31:0]
+@28
+testbanch.cpu_block.data_flow_block.OpCode[5:0]
+testbanch.cpu_block.data_flow_block.ForwardA[1:0]
+testbanch.cpu_block.data_flow_block.ForwardB[1:0]
+@24
+testbanch.cpu_block.data_flow_block.alu_in1[31:0]
+testbanch.cpu_block.data_flow_block.alu_in2[31:0]
+@c00024
+testbanch.cpu_block.data_flow_block.alu_out[31:0]
+@28
+(0)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(1)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(2)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(3)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(4)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(5)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(6)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(7)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(8)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(9)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(10)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(11)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(12)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(13)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(14)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(15)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(16)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(17)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(18)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(19)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(20)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(21)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(22)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(23)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(24)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(25)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(26)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(27)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(28)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(29)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(30)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+(31)testbanch.cpu_block.data_flow_block.alu_out[31:0]
+@1401200
+-group_end
+@28
+testbanch.cpu_block.data_flow_block.register_block.write
+@22
+testbanch.cpu_block.data_flow_block.DataAreg[31:0]
+testbanch.cpu_block.data_flow_block.DataBreg[31:0]
+testbanch.cpu_block.data_flow_block.DataBnew[31:0]
+testbanch.cpu_block.data_flow_block.rsdata[31:0]
+testbanch.cpu_block.data_flow_block.MUX0.Out[31:0]
+testbanch.cpu_block.data_flow_block.MUX1.Out[31:0]
+testbanch.cpu_block.data_flow_block.forwarding_unit.EXRegRs[4:0]
+testbanch.cpu_block.data_flow_block.forwarding_unit.EXRegRt[4:0]
+testbanch.cpu_block.data_flow_block.forwarding_unit.MEMRegRd[4:0]
+testbanch.cpu_block.data_flow_block.forwarding_unit.WBRegRd[4:0]
+@28
+testbanch.cpu_block.data_flow_block.forwarding_unit.WB_RegWrite
+@22
+testbanch.cpu_block.data_flow_block.memory_block.wdata[31:0]
+@28
+testbanch.cpu_block.data_flow_block.memory_block.wenable
+@22
+testbanch.cpu_block.data_flow_block.memory_block.addr[31:0]
+@23
+testbanch.cpu_block.data_flow_block.memory_block.wdata[31:0]
+[pattern_trace] 1
+[pattern_trace] 0

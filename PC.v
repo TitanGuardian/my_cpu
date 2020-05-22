@@ -1,9 +1,10 @@
-module PC (clk, rst, newPC, pc);
+module PC (clk, rst, newPC, pc, PCWrite);
     
     localparam counterWidth = 32;
      
     input wire clk;
     input wire rst;
+    input wire PCWrite;
     input wire[counterWidth-1:0] newPC;
     
     output wire[counterWidth-1:0] pc;
@@ -17,7 +18,8 @@ module PC (clk, rst, newPC, pc);
     if (rst) 
         programCounter <= 0;
     else 
-        programCounter <= newPC;
+        if (PCWrite)
+            programCounter <= newPC;
     end
     
     

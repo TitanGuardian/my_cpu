@@ -1,4 +1,4 @@
-module controlFlow (OpCode, zero, PCSrc, RegDst, RegWrite, ExtSel, OpSel, BSrc, MemWrite, WBSrc, comFormat) ;
+module controlFlow (OpCode, zero, PCSrc, RegDst, RegWrite, ExtSel, OpSel, BSrc, MemWrite, MemRead, WBSrc, comFormat) ;
 
     // mem access bit OpCode[5]
     // mem access format == 01
@@ -19,7 +19,8 @@ module controlFlow (OpCode, zero, PCSrc, RegDst, RegWrite, ExtSel, OpSel, BSrc, 
     output reg[1:0] RegDst   ;
     output reg      BSrc    ;   
     output reg      MemWrite;
-    output reg[1:0] WBSrc;  
+    output reg      MemRead;
+    output reg      WBSrc;  
     output    [1:0] comFormat;  
     
     
@@ -105,12 +106,19 @@ module controlFlow (OpCode, zero, PCSrc, RegDst, RegWrite, ExtSel, OpSel, BSrc, 
         endcase
     end
 
+    // MemRead
+    always@* begin
+        MemRead = 0;
+        case (OpCode)
+        6'b100011: MemRead = 1;        
+        endcase
+    end
 
     // WBSrc
     always@* begin
-        WBSrc = 2'd1;
+        WBSrc = 2'd0;
         case (OpCode)
-        6'b100011: WBSrc = 2'd2;
+        6'b100011: WBSrc = 2'd1;
         endcase
     end
 

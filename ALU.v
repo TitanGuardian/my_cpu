@@ -1,4 +1,4 @@
-module ALU (in1,in2, aluControl, isZero, out);
+module ALU (in1,in2, aluControl,  out);
 
     input wire [31:0] in1; 
     input wire [31:0] in2;
@@ -7,10 +7,7 @@ module ALU (in1,in2, aluControl, isZero, out);
     
     input wire [ 5:0] opcode;
 
-    output wire isZero;
     output reg [31:0] out;
-    
-    assign isZero = out==0;
     
     wire signed [31:0] in1signed; 
     assign in1signed = in1;
