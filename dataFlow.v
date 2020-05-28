@@ -46,12 +46,14 @@ module dataFlow (clk, rst, comFormat, PCSrc, RegWrite, MemWrite, MemRead, RegDst
     wire  [4:0] MEM_rd, WB_rd;
     wire [31:0] read_data, WB_mem_out;
     wire [31:0] muxout;
+    wire l2_wenable, l2_renable, l2_stall;
     wire mem_wenable, mem_renable;
+    wire [31:0] l2_wdata, l2_rdata, l2_addr;
     wire [31:0] mem_wdata, mem_rdata, mem_addr;
-    wire stall, hit;
+    wire stall, stallL2, hit, hitL2;
     wire [1:0] ForwardA,ForwardB;
     wire HazMuxCon, PCWrite, IFIDWrite, IDEXWrite, EXMEMWrite, MEMWBWrite;
-    
+    wire [0:127] l1block;
     
     assign OpCode = opcode;
     assign IFFlush = (PCSrc!=2'b00); 
@@ -223,7 +225,24 @@ module dataFlow (clk, rst, comFormat, PCSrc, RegWrite, MemWrite, MemRead, RegDst
                      .renable(MEM_MRead), 
                      .rdata(read_data),
                      .stall(stall),
+                     .stallL2(stallL2),
+                     .l1block(l1block),
                      .hit(hit),
+                     .mem_wenable(l2_wenable), 
+                     .mem_renable(l2_renable), 
+                     .mem_wdata(l2_wdata), 
+                     .mem_rdata(l2_rdata), 
+                     .mem_addr(l2_addr)
+                    );
+    
+    cacheL2 cacheL2Block(.clk(clk), 
+                     .rst(rst), 
+                     .addr(l2_addr), 
+                     .wdata(l2_wdata), 
+                     .wenable(l2_wenable), 
+                     .renable(l2_renable), 
+                     .l1block(l1block),
+                     .stall(stallL2),
                      .mem_wenable(mem_wenable), 
                      .mem_renable(mem_renable), 
                      .mem_wdata(mem_wdata), 

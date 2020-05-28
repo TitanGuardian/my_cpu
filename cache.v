@@ -1,10 +1,12 @@
-module cache (clk, rst, addr, wdata, wenable, renable, rdata, hit, mem_wenable, mem_renable, mem_wdata, mem_rdata, mem_addr, stall) ;
+module cache (clk, rst, addr, wdata, wenable, renable, rdata, hit, mem_wenable, mem_renable, mem_wdata, mem_rdata, mem_addr, stall,stallL2, l1block) ;
 
 input wire clk;
 input wire rst;
 input wire wenable, renable;
 input wire [31:0] wdata, mem_rdata;
 input wire [31:0] addr;
+input wire [0:127] l1block; 
+input stallL2;
 output reg [31:0] rdata;
 output reg [31:0] mem_wdata, mem_addr;
 output hit, stall;
@@ -13,6 +15,9 @@ output reg mem_renable, mem_wenable;
 wire index;
 wire tag;
 wire block;
+wire hitl2;
+
+assign hitl2 = !stallL2;
 
 localparam stride = (1+26+4*32);
 
@@ -47,7 +52,7 @@ wire tag_cmp;
 assign tag_cmp = (t_cur==t);
 
 assign hit = v_cur & tag_cmp;
-assign stall = renable&!hit;
+assign stall = stallL2;
 
 always @*
 case (b)
@@ -82,75 +87,34 @@ if (rst)
         mem_renable<=0;
         mem_wenable<=0;
     end
-    else if (renable&!hit)
-    begin
-        case (counter)
-            4:begin 
-                    cacheBlock[k][0]<=0;
-                    counter<= counter - 1;
-               end
-            3: begin 
-                    cacheBlock[k][27:(27+31)]<=mem_rdata;
-                    cacheBlock[k][0]<=0;
-                    counter<= counter - 1;
-               end
-            2:  begin 
-                    cacheBlock[k][27+32:(27+32+31)]<=mem_rdata;
-                    cacheBlock[k][0]<=0;
-                    counter<= counter - 1;
-                end
-            1:  begin 
-                    cacheBlock[k][27+64:(27+64+31)]<=mem_rdata;
-                    cacheBlock[k][0]<=0;
-                    counter<= counter - 1;
-                end
-            0:  begin 
-                    cacheBlock[k][27+96:(27+96+31)]<=mem_rdata;
-                    cacheBlock[k][1:1+25]<=t_cur;
-                    cacheBlock[k][0]<=1;
-                    counter<= 4;
-                end
-        endcase
-    end
-    else
-        counter <=4;
 end
+
+always @*
+if (!hit&renable)
+    if (!hitl2)
+    begin
+        cacheBlock[k][0] = 0;
+    end
+    else 
+    begin
+        cacheBlock[k][0]=1;
+        cacheBlock[k][1:26]=t_cur;
+        cacheBlock[k][27:stride-1]=l1block;
+    end
 
 always @*
 if (renable&!hit)
     begin
-        mem_wdata = 0;
-        mem_addr = 0;
-        mem_renable = 0;
+        mem_addr = addr;
+        mem_wdata = wdata;
+        mem_renable = 1;
         mem_wenable = 0;
-        case (counter)
-            4: begin 
-                mem_addr = r0; 
-                mem_renable = 1;
-                mem_wenable = 0;
-               end
-            3:  begin 
-                mem_addr = r1; 
-                mem_renable = 1;
-                mem_wenable = 0;
-                end
-            2:  begin 
-                mem_addr = r2; 
-                mem_renable = 1;
-                mem_wenable = 0;
-                end
-            1:  begin 
-                mem_addr = r3; 
-                mem_renable = 1;
-                mem_wenable = 0;
-                end
-        endcase
     end
-else if(renable&hit)
+else if (renable&!hit)
     begin
-        mem_wdata = 0;
+        mem_addr = addr;
+        mem_wdata = wdata;
         mem_renable = 0;
-        mem_addr = 0;
         mem_wenable = 0;
     end
 else if (wenable&!hit)
@@ -159,7 +123,7 @@ else if (wenable&!hit)
         mem_wdata = wdata;
         mem_renable = 0;
         mem_wenable = 1;
-    end   
+    end
 else if (wenable&hit)       
     begin
         mem_addr = addr;
@@ -173,7 +137,5 @@ else if (wenable&hit)
             2'b11: cacheBlock[k][(27+96):(27+96+31)] = wdata;
         endcase
     end
-    
-    
 
 endmodule

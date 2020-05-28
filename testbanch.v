@@ -5,7 +5,7 @@ module testbanch();
     initial rst = 1;
     initial #2 rst = 0;
 
-    initial #120 $finish;
+    initial #500 $finish;
     always #1 clk = !clk;
     
     cpu cpu_block(clk, rst);
