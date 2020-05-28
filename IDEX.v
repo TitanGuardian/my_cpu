@@ -1,6 +1,6 @@
 module IDEX(clock, rst, WB, RegWrite, RegWritereg,MRead,MWrite,OPSEL, BSRC, RegDst,DataA,DataB,imm_value, aluControl,RegRs,RegRt,RegRd,WBreg,MReadreg, MWritereg,OPSELreg, BSRCreg, RegDstreg
-        ,DataAreg, DataBreg,imm_valuereg,RegRsreg,RegRtreg,RegRdreg, aluControlreg); 
-    input clock, rst; 
+        ,DataAreg, DataBreg,imm_valuereg,RegRsreg,RegRtreg,RegRdreg, aluControlreg, IDEXWrite); 
+    input clock, rst, IDEXWrite; 
     input WB, RegWrite; 
     input MRead, MWrite; 
     input [3:0] OPSEL; 
@@ -37,6 +37,7 @@ module IDEX(clock, rst, WB, RegWrite, RegWritereg,MRead,MWrite,OPSEL, BSRC, RegD
         aluControlreg <= 0;
     end
     else
+    if (IDEXWrite)
     begin 
         WBreg <= WB; 
         RegWritereg <= RegWrite; 

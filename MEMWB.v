@@ -1,5 +1,5 @@
-module MEMWB(clock,rst,WB,RegWrite, RegWritereg,Memout,ALUOut,RegRD,WBreg,Memreg,ALUreg,RegRDreg); 
-    input clock,rst; 
+module MEMWB(clock,rst,WB,RegWrite, RegWritereg,Memout,ALUOut,RegRD,WBreg,Memreg,ALUreg,RegRDreg, MEMWBWrite); 
+    input clock,rst,MEMWBWrite; 
     input WB, RegWrite; 
     input [4:0] RegRD; 
     input [31:0] Memout,ALUOut; 
@@ -17,6 +17,7 @@ module MEMWB(clock,rst,WB,RegWrite, RegWritereg,Memout,ALUOut,RegRD,WBreg,Memreg
         RegRDreg <= 0; 
     end
     else
+    if (MEMWBWrite)
     begin 
         WBreg <= WB; 
         RegWritereg <= RegWrite;

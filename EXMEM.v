@@ -1,5 +1,5 @@
-module EXMEM(clock, rst, WB, RegWrite, RegWritereg,MRead, MWrite,ALUOut,RegRD,WriteDataIn,MWritereg,MReadreg,WBreg,ALUreg,RegRDreg,WriteDataOut); 
-    input clock, rst; 
+module EXMEM(clock, rst, WB, RegWrite, RegWritereg,MRead, MWrite,ALUOut,RegRD,WriteDataIn,MWritereg,MReadreg,WBreg,ALUreg,RegRDreg,WriteDataOut, EXMEMWrite); 
+    input clock, rst, EXMEMWrite; 
     input WB, RegWrite; 
     input MRead, MWrite; 
     input [4:0] RegRD; 
@@ -22,6 +22,7 @@ module EXMEM(clock, rst, WB, RegWrite, RegWritereg,MRead, MWrite,ALUOut,RegRD,Wr
         WriteDataOut <= 0; 
     end
     else
+    if (EXMEMWrite)
     begin 
         WBreg <= WB; 
         RegWritereg <= RegWrite;
